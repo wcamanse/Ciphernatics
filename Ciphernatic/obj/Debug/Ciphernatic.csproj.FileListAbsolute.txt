@@ -1,0 +1,6 @@
+c:\users\wcamanse\documents\visual studio 2015\Projects\Ciphernatic\Ciphernatic\bin\Debug\Ciphernatic.exe.config
+c:\users\wcamanse\documents\visual studio 2015\Projects\Ciphernatic\Ciphernatic\bin\Debug\Ciphernatic.exe
+c:\users\wcamanse\documents\visual studio 2015\Projects\Ciphernatic\Ciphernatic\bin\Debug\Ciphernatic.pdb
+c:\users\wcamanse\documents\visual studio 2015\Projects\Ciphernatic\Ciphernatic\obj\Debug\Ciphernatic.csprojResolveAssemblyReference.cache
+c:\users\wcamanse\documents\visual studio 2015\Projects\Ciphernatic\Ciphernatic\obj\Debug\Ciphernatic.exe
+c:\users\wcamanse\documents\visual studio 2015\Projects\Ciphernatic\Ciphernatic\obj\Debug\Ciphernatic.pdb
