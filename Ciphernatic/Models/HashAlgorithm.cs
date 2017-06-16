@@ -27,6 +27,7 @@ namespace Ciphernatic.Models
     /// [9] SHA394 Asymmetric
     /// [10] SHA512 Asymmetric
     /// [11] MD5 Asymmetric
+    /// [12] Web Service
     /// </summary>
     /// <remarks>
     /// Hashing Algorithm cannot operate on string; rather, hashing algorithms must operate on a sequence of bytes.
@@ -46,6 +47,8 @@ namespace Ciphernatic.Models
         /// Required output property to display hash algorithm description
         /// </summary>
         public string Description { get; set; }
+
+        public string OutputValue { get; set; }
 
         /// <summary>
         /// Returns encoded inputValue to ASCII Bytes
@@ -230,6 +233,95 @@ namespace Ciphernatic.Models
             {
                 // view entity display name 
                 Console.WriteLine(Helpers.EnumDisplayName(option));
+            }
+        }
+
+        /// <summary>
+        /// Parse and initialize program base on the requested input parameter values
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="inputValue"></param>
+        /// <returns></returns>
+        public static HashAlgorithm HashValue(HashOptions options, string inputValue)
+        {
+
+            var hashValue = new HashAlgorithm {InputValue = inputValue};
+            switch (options)
+            {
+                case Models.HashOptions.RipedMD160:
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateRIPEMD160Hash,
+                        Description = hashValue.Description
+                    };
+                    
+                case Models.HashOptions.SHA1:
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA1Hash,
+                        Description = hashValue.Description
+                    };
+                case Models.HashOptions.SHA256:
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA256Hash,
+                        Description = hashValue.Description
+                    };
+                case Models.HashOptions.SHA384:
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA384Hash,
+                        Description = hashValue.Description
+                    };
+                case Models.HashOptions.SHA512:
+             
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA512Hash,
+                        Description = hashValue.Description
+                    }; 
+                case Models.HashOptions.MD5:
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateMD5Hash,
+                        Description = hashValue.Description
+                    }; 
+                case Models.HashOptions.SHA1Asymmetric:
+                
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA1Asymmetric,
+                        Description = hashValue.Description
+                    }; 
+                case Models.HashOptions.SHA256Asymmetric:
+               
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA256Asymmetric,
+                        Description = hashValue.Description
+                    }; 
+                case Models.HashOptions.SHA384Asymmetric:
+                
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA384Asymmetric,
+                        Description = hashValue.Description
+                    }; 
+                case Models.HashOptions.SHA512Asymmetric:
+       
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateSHA512Asymmetric,
+                        Description = hashValue.Description
+                    }; 
+                case Models.HashOptions.MD5Asymmetric:
+                    return new HashAlgorithm
+                    {
+                        OutputValue = hashValue.GenerateMD5Asymmetric,
+                        Description = hashValue.Description
+                    }; 
+                default:
+                    return new HashAlgorithm { OutputValue = "", Description = "" };
             }
         }
 

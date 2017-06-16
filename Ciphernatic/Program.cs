@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Ciphernatic.Models;
+using Microsoft.Owin.Hosting;
+using Owin;
 
 namespace Ciphernatic
 {
@@ -15,9 +20,9 @@ namespace Ciphernatic
     /// This program performs hash cryptography.  Allows user to select hash type and generates hashed value
     /// base on the requested input.
     /// </summary>
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             
             Console.Clear();
@@ -39,7 +44,7 @@ namespace Ciphernatic
                 // asses numeric value
                 var valid = int.TryParse(selectedOption, out optionValue);
                 // validate define input against enum values and input value is not zero
-                if (Enum.IsDefined(typeof(HashOptions), optionValue) && optionValue!=0)
+                if (Enum.IsDefined(typeof(HashOptions), optionValue) && optionValue!=0 && optionValue!=99)
                 {
                     // request the value to be hashed
                     Console.Write("Enter a value to hash : ");
@@ -48,7 +53,12 @@ namespace Ciphernatic
                     // parse input and display results
                     Ciphernatic((HashOptions)optionValue, inputValue, out endprogram);
 
-                }else if (optionValue == 0 && valid)
+                }else if (optionValue == 99)
+                {
+                    // parse input and display results
+                    Ciphernatic((HashOptions)optionValue, "", out endprogram);
+                }
+                else if (optionValue == 0 && valid)
                 {
                     // break from loop and end program
                     break;
@@ -89,12 +99,13 @@ namespace Ciphernatic
         /// <param name="options"></param>
         /// <param name="inputValue"></param>
         /// <param name="endprogram"></param>
-        static void Ciphernatic(HashOptions options, string inputValue, out bool endprogram)
+        private static void Ciphernatic(HashOptions options, string inputValue, out bool endprogram)
         {
-            // define HashAlgorithm with input value
-            var hashValue = new HashAlgorithm {InputValue = inputValue};
+
+
             // define default values
             var outputValue = "";
+            var description = "";
             endprogram = false;
 
             // evaluate requested enum options
@@ -103,40 +114,14 @@ namespace Ciphernatic
                 case HashOptions.Exit:
                     endprogram = true;
                     return;
-                case HashOptions.RipedMD160:
-                    outputValue = hashValue.GenerateRIPEMD160Hash;
-                    break;
-                case HashOptions.SHA1:
-                    outputValue = hashValue.GenerateSHA1Hash;
-                    break;
-                case HashOptions.SHA256:
-                    outputValue = hashValue.GenerateSHA256Hash;
-                    break;
-                case HashOptions.SHA384:
-                    outputValue = hashValue.GenerateSHA384Hash;
-                    break;
-                case HashOptions.SHA512:
-                    outputValue = hashValue.GenerateSHA512Hash;
-                    break;
-                case HashOptions.MD5:
-                    outputValue = hashValue.GenerateMD5Hash;
-                    break;
-                case HashOptions.SHA1Asymmetric:
-                    outputValue = hashValue.GenerateSHA1Asymmetric;
-                    break;
-                case HashOptions.SHA256Asymmetric:
-                    outputValue = hashValue.GenerateSHA256Asymmetric;
-                    break;
-                case HashOptions.SHA384Asymmetric:
-                    outputValue = hashValue.GenerateSHA384Asymmetric;
-                    break;
-                case HashOptions.SHA512Asymmetric:
-                    outputValue = hashValue.GenerateSHA512Hash;
-                    break;
-                case HashOptions.MD5Asymmetric:
-                    outputValue = hashValue.GenerateMD5Asymmetric;
-                    break;
+                case HashOptions.WebService:
+                    CipherNaticWebServerInit();
+                    return;
                 default:
+                    // define HashAlgorithm with input value
+                    var output = HashAlgorithm.HashValue(options,inputValue);
+                    outputValue = output.OutputValue;
+                    description = output.Description;
                     break;
             }
 
@@ -146,7 +131,7 @@ namespace Ciphernatic
             {
                 // display results
                 Console.WriteLine("----------------------------");
-                Console.WriteLine($"DESCRIPTION: {hashValue.Description}");
+                Console.WriteLine($"DESCRIPTION: {description}");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine($"Hash Output Value : {outputValue}");
                 Console.WriteLine("----------------------------");
@@ -155,5 +140,23 @@ namespace Ciphernatic
 
 
         }
+
+        /// <summary>
+        /// Initialize web server accessible through localhost port 8888
+        /// </summary>
+        private static void CipherNaticWebServerInit()
+        {
+            var baseAddress = "http://localhost:8888/";
+
+            WebApp.Start<WebApiConfig>(baseAddress);
+            Console.WriteLine("Web Server started...");
+            Console.WriteLine("Open any web browser and copy/paste the following URI http://localhost:8888/pages/index.html");
+            Console.ReadLine();
+
+        }
+
+
+
+
     }
 }

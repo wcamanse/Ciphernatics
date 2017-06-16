@@ -1,0 +1,101 @@
+﻿<!doctype html>
+<html >
+<head>
+
+   
+
+    <!--<!-- Basic -->
+    <meta charset="UTF-8">
+
+    <title>Ciphernatics - Hashing it!</title>
+    <meta name="keywords" content="Hashing Page" />
+    <meta name="description" content="Ciphernatics Hashing Samples">
+    <meta name="author" content="Windell Noble Camanse">
+
+    <!-- Mobile Metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+
+    <!-- Web Fonts  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/freelancer/css/freelancer.min.css"/>
+
+</head>
+<body ng-app="ciphernaticsViewer">
+    <!-- Header -->
+<header>
+    <div class="container" id="maincontent" tabindex="-1">
+        <div class="row">
+            <div class="col-lg-12">
+                <img class="img-responsive" src="assets/img/profile.png" alt="">
+                <div class="intro-text">
+                    <h1 class="name">Ciphernatics</h1>
+                    <hr class="star-light">
+                    <span class="skills">Hashing it out!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+    
+<section ng-controller="MainController">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Hash your string here!</h2>
+                <hr class="star-primary">
+                <form name="hashValue" ng-submit="hash(inputvalue)">
+                    <div class="form-group">
+                        <input required type="search" class="form-control form-inline" placeholder="Your string to hash" ng-model="inputvalue" />
+                        <input type="submit" value="Hash my string" class="btn btn-primary btn-sm" style="margin-top: 5px" />
+                        
+                        
+                    </div>
+                </form>
+                    
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <table class="table table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width: 200px">Hash Type</th>
+                        <th>Description</th>
+                        <th>Hash Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="repo in repos">
+                        <td>{{repo.Type}}</td>
+                        <td>{{repo.Description}}</td>
+                        <td>{{repo.Value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+      
+
+
+    <!-- Vendor Default Libraries-->
+<script src="assets/jquery.js"></script>
+<script src="assets/angular.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="assets/freelancer/js/freelancer.js"></script>
+    <!-- Custom Page JS-->
+<script src="assets/script.js"></script>
+
+
+
+    
+    
+
+</body>
+</html>

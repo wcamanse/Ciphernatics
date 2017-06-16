@@ -61,7 +61,16 @@ namespace Ciphernatic.Models
         [Display(Name = "[10] SHA512 Asymmetric")]
         SHA512Asymmetric,
         [Display(Name = "[11] MD5 Asymmetric")]
-        MD5Asymmetric
+        MD5Asymmetric,
+        [Display(Name = "[99] Use Web Service")]
+        WebService=99
 
+    }
+
+    public class HashCollection
+    {
+        public string Type { get; set; }
+        public string Value { get; set; }
+        public string Description { get; set; }
     }
 }
